@@ -5,11 +5,15 @@
   "author": "Abderrezek <galabde94@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon backend/server",
+    "server": "nodemon --exec babel-node backend/server",
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
-const express = require("express");
-const products = require("./data/products");
+import express from "express";
+import products from "./data/products";
 
+import { config } from "./constants";
 const app = express();
 
 app.get("/", (req, res) => {
@@ -21,4 +22,19 @@ app.get("/api/products/:id", (req, res) => {
   res.json(product);
 });
 
-app.listen(5000, () => console.log("server running"));
+app.listen(config.PORT, (err) => {
+  if (err) {
+    console.log("Cannot Running");
+    console.log("==============================");
+    console.log(err);
+    console.log("==============================");
+  } else {
+    console.log(`
+      -----
+      Server Running on PORT: ${config.PORT}
+      -----
+      On mode envirenmont: ${config.MODE_ENV}
+      -----
+    `);
+  }
+});
