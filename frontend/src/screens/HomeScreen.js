@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "semantic-ui-react";
+import axios from "axios";
 
 import Product from "../components/Product";
-import products from "../data/products";
 
 const HomeScreen = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const productsApi = async () => {
+      await axios
+        .get("/api/products")
+        .then((res) => {
+          setProducts(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    };
+
+    productsApi();
+  }, []);
+
   return (
     <>
       <h1>Latest Products</h1>
       <Card.Group>
-        {products.map((product, i) => (
-          <Product product={product} key={i} />
-        ))}
+        {products &&
+          products.map((product, i) => <Product product={product} key={i} />)}
       </Card.Group>
     </>
   );

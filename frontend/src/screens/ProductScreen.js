@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { Button, Grid, Image, List, Icon } from "semantic-ui-react";
+import axios from "axios";
 
 import Rating from "../components/Rating";
-import products from "../data/products";
 
 const ProductScreen = ({ match }) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const productApi = async () => {
+      await axios
+        .get(`/api/products/${match.params.id}`)
+        .then((res) => {
+          setProduct(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    };
+
+    productApi();
+  }, [match.params.id]);
 
   if (!product) {
     return <Redirect to="/" />;
