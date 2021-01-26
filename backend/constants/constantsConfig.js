@@ -4,9 +4,17 @@ const defaultConfig = {
   MODE_ENV: process.env.NODE_ENV || "development",
   HOST: process.env.HOST || "127.0.0.1",
   PORT: process.env.PORT || 5000,
+
+  // MONGO_URI: process.env.MONGO_URI,
+  dbUsername: process.env.DB_USERNAME,
+  dbPassword: process.env.DB_PASSWORD,
+  dbName: process.env.DB_NAME,
+  dbCluster: process.env.DB_CLUSTER,
 };
 
-const devConfig = {};
+const devConfig = {
+  MONGO_URI: `mongodb+srv://${defaultConfig.dbUsername}:${defaultConfig.dbPassword}@${defaultConfig.dbCluster}/${defaultConfig.dbName}?retryWrites=true&w=majority`,
+};
 
 const testConfig = {};
 

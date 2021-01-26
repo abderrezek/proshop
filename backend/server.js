@@ -1,8 +1,12 @@
 import express from "express";
+import colors from "colors";
 import products from "./data/products";
 
 import { config } from "./constants";
+import dbConfig from "./config/db";
 const app = express();
+
+dbConfig();
 
 app.get("/", (req, res) => {
   res.send("API Running...");
@@ -29,12 +33,14 @@ app.listen(config.PORT, (err) => {
     console.log(err);
     console.log("==============================");
   } else {
-    console.log(`
+    console.log(
+      `
       -----
       Server Running on PORT: ${config.PORT}
       -----
       On mode envirenmont: ${config.MODE_ENV}
       -----
-    `);
+    `.cyan.bold
+    );
   }
 });
