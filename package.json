@@ -7,18 +7,21 @@
   "scripts": {
     "server": "nodemon --exec babel-node backend/server",
     "client": "yarn --cwd frontend start",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\""
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
+    "data:import": "npx babel-node backend/seeder",
+    "data:destroy": "npx babel-node backend/seeder --d"
   },
   "dependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/node": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.11.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "concurrently": "^5.3.0"
   }
 }
