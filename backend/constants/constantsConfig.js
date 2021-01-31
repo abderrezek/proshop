@@ -18,7 +18,9 @@ const devConfig = {
 
 const testConfig = {};
 
-const prodConfig = {};
+const prodConfig = {
+  MONGO_URI: `mongodb+srv://${defaultConfig.dbUsername}:${defaultConfig.dbPassword}@${defaultConfig.dbCluster}/${defaultConfig.dbName}?retryWrites=true&w=majority`,
+};
 
 const envConfig = (env) => {
   switch (env) {
@@ -33,7 +35,14 @@ const envConfig = (env) => {
   }
 };
 
+const modeEnv = {
+  is_DEV: defaultConfig.MODE_ENV === "development",
+  is_PROD: defaultConfig.MODE_ENV !== "development",
+  is_TEST: defaultConfig.MODE_ENV === "test",
+};
+
 export default {
   ...defaultConfig,
   ...envConfig(defaultConfig.MODE_ENV),
+  ...modeEnv,
 };

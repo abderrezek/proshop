@@ -1,31 +1,40 @@
 import express from "express";
 import colors from "colors";
-import products from "./data/products";
 
 import { config } from "./constants";
 import dbConfig from "./config/db";
+import APIRoutes from "./routes";
+import notFound from "./config/404";
+import errorHandling from "./config/errorHandling";
+
 const app = express();
 
+/**
+ * Database Configuration
+ */
 dbConfig();
 
+/**
+ * Routes Configuration
+ */
 app.get("/", (req, res) => {
   res.send("API Running...");
 });
+app.use("/api/v1", APIRoutes);
 
-app.get("/api/products", (req, res) => {
-  res.json(products);
-});
+/**
+ * Route NotFound
+ */
+notFound(app);
 
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
+/**
+ * Errors Handling
+ */
+errorHandling(app);
 
-  if (!product) {
-    res.json({ message: "Product Not Found" });
-  }
-
-  res.json(product);
-});
-
+/**
+ * App Listening
+ */
 app.listen(config.PORT, (err) => {
   if (err) {
     console.log("Cannot Running");
