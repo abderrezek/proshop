@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { Button, Grid, Image, List, Icon } from "semantic-ui-react";
-import axios from "axios";
+import { Button, Grid, Image, List, Icon, Message } from "semantic-ui-react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import { detailsProduct } from "../redux/actions/productActions";
 
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+
+  const { loading, product, error } = useSelector(
+    (state) => state.productDetails
+  );
 
   useEffect(() => {
-    const productApi = async () => {
-      await axios
-        .get(`/api/products/${match.params.id}`)
-        .then((res) => {
-          setProduct(res.data);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    };
+    dispatch(detailsProduct(match.params.id));
+  }, [match.params.id, dispatch]);
 
-    productApi();
-  }, [match.params.id]);
+  if (loading) {
+    return <Loader text="Loading..." />;
+  }
+
+  if (error) {
+    return <Message negative header="Error" content={error} />;
+  }
 
   if (!product) {
     return <Redirect to="/" />;
@@ -67,7 +70,7 @@ const ProductScreen = ({ match }) => {
 
               {/* Description */}
               <List.Item>
-                <List.Content>Description: ${product.description}</List.Content>
+                <List.Content>Description: {product.description}</List.Content>
               </List.Item>
             </List>
           </Grid.Column>

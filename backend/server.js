@@ -3,11 +3,17 @@ import colors from "colors";
 
 import { config } from "./constants";
 import dbConfig from "./config/db";
+import middlewareConfig from "./config/middlewares";
 import APIRoutes from "./routes";
 import notFound from "./config/404";
 import errorHandling from "./config/errorHandling";
 
 const app = express();
+
+/**
+ * Middlewares Configuration
+ */
+middlewareConfig(app);
 
 /**
  * Database Configuration
