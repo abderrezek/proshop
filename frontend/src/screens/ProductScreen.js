@@ -1,13 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { Button, Grid, Image, List, Icon, Message } from "semantic-ui-react";
+import {
+  Button,
+  Grid,
+  Image,
+  List,
+  Icon,
+  Message,
+  Select,
+} from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Rating from "../components/Rating";
 import Loader from "../components/Loader";
 import { detailsProduct } from "../redux/actions/productActions";
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
+  const [qty, setQty] = useState(0);
+  const [showError, setShowError] = useState(false);
+
   const dispatch = useDispatch();
 
   const { loading, product, error } = useSelector(
@@ -17,6 +28,34 @@ const ProductScreen = ({ match }) => {
   useEffect(() => {
     dispatch(detailsProduct(match.params.id));
   }, [match.params.id, dispatch]);
+
+  const itemInStock = [...Array(product.countInStock).keys()].map((x) => ({
+    key: x + 1,
+    value: x + 1,
+    text: x + 1,
+  }));
+
+  const selectItemInStock = (e) => setQty(Number(e.target.textContent));
+
+  const addToCart = (e) => {
+    if (qty > 0) {
+      history.push(`/cart/${match.params.id}?qty=${qty}`);
+    } else {
+      setShowError(true);
+    }
+  };
+
+  const _handleDismiss = () => setShowError(false);
+
+  const displayError = () =>
+    showError && (
+      <Message
+        negative
+        onDismiss={_handleDismiss}
+        header="We're sorry we can't Add To Cart"
+        content="You'r not Select any Qty."
+      />
+    );
 
   if (loading) {
     return <Loader text="Loading..." />;
@@ -35,6 +74,7 @@ const ProductScreen = ({ match }) => {
       <Button as={Link} to="/">
         Go Back
       </Button>
+      {displayError()}
       <Grid>
         <Grid.Row>
           <Grid.Column mobile="16" tablet="8" computer="8">
@@ -98,9 +138,32 @@ const ProductScreen = ({ match }) => {
                 </List.Content>
               </List.Item>
 
+              {product.countInStock > 0 && (
+                <List.Item>
+                  <List.Content>
+                    <Grid.Row columns="2">
+                      <Grid.Column floated="left">Qty:</Grid.Column>
+                      <Grid.Column floated="right">
+                        <Select
+                          placeholder="Select your Qty"
+                          onChange={selectItemInStock}
+                          value={qty}
+                          options={itemInStock}
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+                  </List.Content>
+                </List.Item>
+              )}
+
               <List.Item>
                 <List.Content>
-                  <Button secondary fluid disabled={product.countInStock === 0}>
+                  <Button
+                    secondary
+                    fluid
+                    disabled={product.countInStock === 0}
+                    onClick={addToCart}
+                  >
                     <Icon name="cart arrow down" />
                     Add To Cart
                   </Button>

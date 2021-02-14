@@ -13,12 +13,10 @@ function Header() {
 
           <Menu.Menu position="right">
             <Menu.Item as={Link} to="/cart">
-              <i className="fas fa-shopping-cart"></i>
-              Cart
+              <i className="fas fa-shopping-cart"></i> Cart
             </Menu.Item>
             <Menu.Item as={Link} to="/login">
-              <i className="fas fa-user"></i>
-              Sign In
+              <i className="fas fa-user"></i> Sign In
             </Menu.Item>
           </Menu.Menu>
         </Container>
