@@ -10,6 +10,8 @@ const defaultConfig = {
   dbPassword: process.env.DB_PASSWORD,
   dbName: process.env.DB_NAME,
   dbCluster: process.env.DB_CLUSTER,
+
+  JWT_SECRET: process.env.JWT_SECRET,
 };
 
 const devConfig = {
