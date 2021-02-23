@@ -10,5 +10,11 @@ const routes = new Router();
 routes.post("/", validate(userValidation.register), userController.register);
 routes.post("/login", validate(userValidation.login), userController.login);
 routes.get("/profile", authJWT, userController.profile);
+routes.put(
+  "/profile",
+  authJWT,
+  validate(userValidation.updateProfile),
+  userController.updateProfile
+);
 
 export default routes;

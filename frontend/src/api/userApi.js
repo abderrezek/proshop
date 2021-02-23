@@ -19,5 +19,15 @@ export const login = (email, password) => {
 };
 
 export const register = (name, email, password) => {
-  return axiosCaller.get(`${USERS}/`, { name, email, password }, config);
+  return axiosCaller.post(`${USERS}/`, { name, email, password }, config);
+};
+
+export const profile = (id, token) => {
+  config.headers.Authorization = `Bearer ${token}`;
+  return axiosCaller.get(`${USERS}/${id}`, config);
+};
+
+export const updateProfile = (user, token) => {
+  config.headers.Authorization = `Bearer ${token}`;
+  return axiosCaller.put(`${USERS}/profile`, user, config);
 };

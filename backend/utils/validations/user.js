@@ -14,4 +14,11 @@ export default {
       password: Joi.string().required(),
     }),
   },
+  updateProfile: {
+    body: Joi.object({
+      name: Joi.string(),
+      email: Joi.string().email(),
+      password: Joi.string(),
+    }),
+  },
 };

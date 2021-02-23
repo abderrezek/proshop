@@ -17,6 +17,8 @@ const rootReducer = combineReducers({
 
   userLogin: user.userLoginReducer,
   userRegister: user.userRegisterReducer,
+  userDetails: user.userDetailsReducer,
+  userUpdateProfile: user.userUpdateProfileReducer,
 });
 
 export default rootReducer;
