@@ -95,6 +95,7 @@ const CartScreen = ({ match, location }) => {
             </Item.Group>
           )}
         </Grid.Column>
+
         <Grid.Column computer={6}>
           <Segment.Group>
             <Segment>
