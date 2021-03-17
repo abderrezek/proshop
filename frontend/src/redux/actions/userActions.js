@@ -1,4 +1,4 @@
-import { userActionsTypes } from "./actionsTypes";
+import { userActionsTypes, orderActionsTypes } from "./actionsTypes";
 import * as userApi from "../../api/userApi";
 
 const USER_INFO = "userInfo";
@@ -34,6 +34,7 @@ export const logout = () => async (dispatch) => {
   dispatch({ type: userActionsTypes.USER_LOGOUT });
   dispatch({ type: userActionsTypes.USER_DETAILS_RESET });
   dispatch({ type: userActionsTypes.USER_LIST_RESET });
+  dispatch({ type: orderActionsTypes.ORDER_LIST_MY_RESET });
   document.location.href = "/login";
 };
 

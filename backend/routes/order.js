@@ -14,6 +14,8 @@ routes.post(
   orderController.addOrderItems
 );
 
+routes.get("/myorders", authJWT, orderController.getMyOrders);
+
 routes.get("/:id", authJWT, orderController.getOrderById);
 
 routes.put("/:id/pay", authJWT, orderController.updateOrderToPaid);

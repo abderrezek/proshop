@@ -23,6 +23,8 @@ const rootReducer = combineReducers({
 
   orderCreate: order.orderCreateReducer,
   orderDetails: order.orderDetailsReducer,
+  orderPay: order.orderPayReducer,
+  orderListMy: order.orderListMyReducer,
 });
 
 export default rootReducer;

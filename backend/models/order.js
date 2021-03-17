@@ -73,4 +73,13 @@ const orderSchema = mongoose.Schema(
   }
 );
 
+orderSchema.statics = {
+  list({ skip = 0, limit = 5, id } = {}) {
+    return this.find({ _id: { $ne: id } })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+  },
+};
+
 export default mongoose.model("Order", orderSchema);

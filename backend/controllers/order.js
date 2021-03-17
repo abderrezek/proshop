@@ -80,3 +80,24 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
     return res.json({ message: "Order not found." });
   }
 });
+
+// @desc    Get logged in user orders
+// @route   Post /myorders
+// @access  Private
+export const getMyOrders = asyncHandler(async (req, res) => {
+  let q = {
+    skip: parseInt(req.query.skip || 0, 0),
+    limit: parseInt(req.query.limit || 5, 0),
+    id: req.user._id,
+  };
+  const orders = await Order.list(q);
+  const ordersLength = await Order.countDocuments(
+    { user: req.user._id },
+    (err, count) => count
+  );
+
+  res.json({
+    orders,
+    pages: Math.ceil(ordersLength / q.limit),
+  });
+});
