@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "server": "nodemon --exec babel-node backend/server",
-    "client": "yarn --cwd frontend start",
+    "client": "set 'BROWSER=none' && yarn --cwd frontend start",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "data:import": "npx babel-node backend/seeder",
     "data:destroy": "npx babel-node backend/seeder --d"

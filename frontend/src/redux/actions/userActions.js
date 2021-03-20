@@ -135,3 +135,128 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     });
   }
 };
+
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: userActionsTypes.USER_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await userApi.users(userInfo.token);
+
+    dispatch({
+      type: userActionsTypes.USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    const message =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: userActionsTypes.USER_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const deleteUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: userActionsTypes.USER_DELETE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await userApi.deleteUser(id, userInfo.token);
+
+    dispatch({
+      type: userActionsTypes.USER_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    const message =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: userActionsTypes.USER_DELETE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const getUserDetail = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: userActionsTypes.USER_DETAILS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await userApi.getUser(id, userInfo.token);
+
+    dispatch({
+      type: userActionsTypes.USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    const message =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: userActionsTypes.USER_DETAILS_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const updateUser = (id, info) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: userActionsTypes.USER_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const { data } = await userApi.updateUser(id, info, userInfo.token);
+
+    dispatch({
+      type: userActionsTypes.USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    console.log(err.response);
+    const message =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
+    }
+    dispatch({
+      type: userActionsTypes.USER_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};

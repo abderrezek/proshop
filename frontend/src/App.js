@@ -12,6 +12,8 @@ import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import LoginScreen from "./screens/LoginScreen";
+import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import NotFound from "./screens/404";
@@ -33,6 +35,8 @@ function App() {
             <Route path="/register" component={RegisterScreen} />
             <Route path="/product/:id" component={ProductScreen} exact />
             <Route path="/cart/:id?" component={CartScreen} />
+            <Route path="/admin/users" component={UserListScreen} />
+            <Route path="/admin/user/:id/edit" component={UserEditScreen} />
             <Route component={NotFound} />
           </Switch>
         </Container>

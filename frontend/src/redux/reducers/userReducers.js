@@ -89,7 +89,12 @@ export const userDeleteReducer = (state = userState.userDelete, action) => {
     case userActionsTypes.USER_DELETE_REQUEST:
       return { ...state, loading: true };
     case userActionsTypes.USER_DELETE_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: action.payload,
+      };
     case userActionsTypes.USER_DELETE_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
@@ -102,7 +107,7 @@ export const userUpdateReducer = (state = userState.userUpdate, action) => {
     case userActionsTypes.USER_UPDATE_REQUEST:
       return { ...state, loading: true };
     case userActionsTypes.USER_UPDATE_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return { ...state, loading: false, success: true, user: action.payload };
     case userActionsTypes.USER_UPDATE_FAIL:
       return { ...state, loading: false, error: action.payload };
     case userActionsTypes.USER_UPDATE_RESET:

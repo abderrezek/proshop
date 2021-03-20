@@ -12,7 +12,7 @@ export const register = {
 
 export const userDetails = {
   loading: false,
-  user: {},
+  user: null,
   error: null,
 };
 
@@ -32,11 +32,13 @@ export const userList = {
 export const userDelete = {
   loading: false,
   success: false,
+  message: "",
   error: null,
 };
 
 export const userUpdate = {
   loading: false,
   success: false,
+  user: null,
   error: null,
 };

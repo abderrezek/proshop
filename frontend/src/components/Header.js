@@ -23,9 +23,13 @@ function Header() {
           </Menu.Item>
 
           <Menu.Menu position="right">
-            <Menu.Item as={Link} to="/cart">
-              <i className="fas fa-shopping-cart"></i> Cart
-            </Menu.Item>
+            <Menu.Item
+              as={Link}
+              to="/cart"
+              icon="shopping cart"
+              content="Cart"
+            />
+
             {userInfo && userInfo.length !== 0 ? (
               <Dropdown
                 item
@@ -34,16 +38,51 @@ function Header() {
                 className="link item"
               >
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/profile">
-                    Profile
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={logoutHandler}>Logout</Dropdown.Item>
+                  <Dropdown.Item
+                    as={Link}
+                    to="/profile"
+                    icon="user circle"
+                    content="Profile"
+                  />
+
+                  <Dropdown.Item
+                    onClick={logoutHandler}
+                    icon="sign-out"
+                    content="Logout"
+                  />
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
-              <Menu.Item as={Link} to="/login">
-                <i className="fas fa-user"></i> Sign In
-              </Menu.Item>
+              <Menu.Item
+                as={Link}
+                to="/login"
+                icon="sign-in"
+                content="Sign In"
+              />
+            )}
+            {userInfo && userInfo.isAdmin && (
+              <Dropdown text="Admin" className="link item" item pointing>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    as={Link}
+                    to="/admin/users"
+                    icon="users"
+                    content="Users"
+                  />
+
+                  <Dropdown.Item
+                    as={Link}
+                    to="/admin/products"
+                    content="Products"
+                  />
+
+                  <Dropdown.Item
+                    as={Link}
+                    to="/admin/orders"
+                    content="Orders"
+                  />
+                </Dropdown.Menu>
+              </Dropdown>
             )}
           </Menu.Menu>
         </Container>
