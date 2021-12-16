@@ -47,9 +47,16 @@ export const productDeleteReducer = (
     case productActionsTypes.PRODUCT_DELETE_REQUEST:
       return { ...state, loading: true };
     case productActionsTypes.PRODUCT_DELETE_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        message: action.payload,
+      };
     case productActionsTypes.PRODUCT_DELETE_FAIL:
       return { ...state, loading: false, error: action.payload };
+    case productActionsTypes.PRODUCT_DELETE_RESET:
+      return productState.deleteProduct;
     default:
       return state;
   }
@@ -72,7 +79,7 @@ export const productCreateReducer = (
     case productActionsTypes.PRODUCT_CREATE_FAIL:
       return { ...state, loading: false, error: action.payload };
     case productActionsTypes.PRODUCT_CREATE_RESET:
-      return { ...state };
+      return productState.createProduct;
     default:
       return state;
   }

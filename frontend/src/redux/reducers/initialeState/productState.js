@@ -15,6 +15,7 @@ export const detailsProduct = {
 export const deleteProduct = {
   loading: false,
   success: false,
+  message: "",
   error: null,
 };
 

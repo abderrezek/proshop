@@ -8,9 +8,11 @@ import { listProducts } from "../redux/actions/productActions";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const { loading, products, error } = useSelector(
-    (state) => state.productList
-  );
+  const {
+    loading,
+    products: { products, pages },
+    error,
+  } = useSelector((state) => state.productList);
 
   useEffect(() => {
     dispatch(listProducts());
